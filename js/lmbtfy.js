@@ -1,8 +1,4 @@
-/**
- * Created by bangbang on 14/10/10.
- * Revised by mengkun on 17/03/16
- */
- 
+
 function urlEncode(String) {
     return encodeURIComponent(String).replace(/'/g,"%27").replace(/"/g,"%22");	
 }
@@ -12,25 +8,11 @@ $(document).ready(function (){
     var clip = new ZeroClipboard($('#copy'));
     $('#search').on('click', function (){
         var link = window.location.origin + window.location.pathname + '?' + urlEncode($('#kw').val());
-        $.ajax({ 
-            url: 'get.php?longUrl='+link,  
-            type: "GET",
-            dataType: "jsonp", //使用JSONP方法进行AJAX
-            cache: false,
-            success: function (data) {
-                if (data){
-                    if(!(typeof data.urls === undefined || typeof data.urls == "undefined"))   //防止短网址失败
-                    {
-                        link = data.urls[0].url_short;
-                    }
-                }
+            
                 $('#go').attr("href",link);
                 $('#link').show();
                 $('#instructions').text('复制下面的地址,然后发给伸手党吧！');
                 $('#lmbtfyLink').val(link).focus().select();
-            }
-        })
-    });
     var $container = $('.container');
     $container.on('click', '#go', function (){  //点击预览
         var link = $('#lmbtfyLink').val();
